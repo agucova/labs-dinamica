@@ -1,0 +1,58 @@
+% basado en parte en https://tex.stackexchange.com/questions/453586/how-to-make-this-free-body-diagram-with-a-non-straight-force-line-using-tikzpict
+\documentclass{standalone}
+
+\usepackage{amsmath}
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{arrows,
+    calc,
+    decorations,
+    scopes,
+}
+
+\begin{document}
+    \def\iangle{20} % Angle of the inclined plane
+
+    \def\down{-90}
+    \def\arcr{0.5cm} % Radius of the arc used to indicate angles
+
+    \begin{tikzpicture}[
+        >=latex',
+        scale=1,
+        force/.style={->,draw=blue,fill=blue},
+        axis/.style={densely dashed,gray,font=\small},
+        M/.style={rectangle,draw,fill=lightgray,minimum size=0.5cm,thin},
+        m/.style={rectangle,draw=black,fill=lightgray,minimum size=0.3cm,thin},
+        plane/.style={draw=black,fill=blue!10},
+        string/.style={draw=red, thick},
+        pulley/.style={thick},
+        ]
+        \pgfmathsetmacro{\Fnorme}{2}
+        \pgfmathsetmacro{\Fangle}{30}
+        \begin{scope}[rotate=\iangle]
+            \node[M,transform shape] (M) {};
+            \coordinate (xmin) at ($(M.south west)-({abs(1.1*\Fnorme*sin(-\Fangle))},0)$);
+            \coordinate (xmax) at ($(M.south east)+({abs(1.1*\Fnorme*sin(-\Fangle))},0)$);
+            \coordinate (ymax) at ($(M.north)+(0, {abs(1.1*\Fnorme*cos(-\Fangle))})$);
+            \coordinate (ymin) at ($(M.south)-(0, 1cm)$);
+            \draw[postaction={decorate, decoration={border, segment length=2pt, angle=-45},draw,red}] (xmin) -- (xmax);
+            \coordinate (N) at ($(M.center)+(0,{\Fnorme*cos(-\Fangle)})$);
+            \coordinate (fr) at ($(M.center)+({\Fnorme*sin(-\Fangle)}, 0)$);
+            % Draw axes and help lines
+
+            {[axis,->]
+                \draw (ymin) -- (ymax) node[right] {$+y$};
+                \draw (M) --(M-|xmax) node[right] {$+x$};    % mental note for me: change "right" to "above"
+            }
+
+            % Forces
+            {[force,->]
+                % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
+                \draw (M.center) -- (N) node [right] {$\vec N$};
+            }
+        \end{scope}
+        % Draw gravity force. The code is put outside the rotated
+        % scope for simplicity. No need to do any angle calculations.
+        \draw[force,->] (M.center) -- ++(0,-1) node[below] {$\vec P$};
+        \draw (M.center)+(-90:\arcr) arc [start angle=-90,end angle=\iangle-90,radius=\arcr] node [right, pos=.5] {};
+    \end{tikzpicture}
+\end{document}
