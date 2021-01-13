@@ -1,6 +1,6 @@
 ---
-title: "Informe del Tercer Laboratorio de Dinámica"
-runningheader: "Tercer laboratorio de Dinámica"
+title: "Informe del Segundo Laboratorio de Dinámica"
+runningheader: "Segundo laboratorio de Dinámica"
 author: "Nicolás Cañete, Joaquín Díaz y Agustín Covarrubias"
 date: "06-01-2021"
 header-includes:
