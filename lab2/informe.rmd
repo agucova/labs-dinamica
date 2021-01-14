@@ -31,7 +31,7 @@ knitr::opts_chunk$set(cache.extra = packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 ```
 
-**Resumen:** En este informe se buscó identificar y analizar el comportamiento de las distintas energías que pueden afectar a un objeto, específicamente la energía cinética y potencial gravitatoria. Junto a esto, se busca también entender cómo estas energías se relacionan con las fuerzas que el mismo objeto siente en distintas situaciones. Para esto, se creó una montaña rusa con un loop, donde se deja caer un carrito a distintas alturas, para que así, este tenga una energía inicial distinta en cada intento. Luego de haber experimentado, se logró determinar teórica y experimentalmente las condiciones necesarias para que el carrito logre dar una vuelta al loop, haciendo uso de conocimientos relacionados con conservación de energía y Segunda Ley de Newton. Finalmente, se concluyó que el diseño experimental fue acertado, pues los porcentajes de error entre valores teóricos y experimentales fueron bajos.
+**Resumen:** En este informe se buscó identificar y analizar el comportamiento de las distintas energías que pueden afectar a un objeto, específicamente la energía cinética y potencial gravitatoria. Junto a esto, se busca también entender cómo estas energías se relacionan con las fuerzas que el mismo objeto siente en distintas situaciones. Para esto, se creó una montaña rusa con un loop, donde se deja caer un carrito a distintas alturas, para que así, este tenga una energía inicial distinta en cada intento. Luego de haber experimentado, se logró determinar teórica y experimentalmente las condiciones necesarias para que el carrito logre dar una vuelta al loop, haciendo uso de conocimientos relacionados con la ley conservación de energía y la segunda ley de Newton. Finalmente, se concluyó que el diseño experimental fue satisfactorio, pues los porcentajes de error entre valores teóricos y experimentales fueron bajos.
 
 # Introducción
 El objetivo de este laboratorio es lograr identificar y relacionar los distintos tipos de energías que puede tener un cuerpo, con las fuerzas que pueden estar interactuando con este. Junto a esto, también se busca relacionar cómo se transforman los distintos tipos de energías antes mencionadas, y cómo esto afecta al cuerpo en cuestión.
@@ -111,7 +111,9 @@ $$ \Delta E_{m} = (E_{cf} + E_{pi}) - (0 + (0.09196 \cdot 9.81 \cdot 0.41)) = 0$
 $$E_{cf} + E_{pf} = 0.3698\,\si{\joule}$$
 También se sabe que el radio del loop es de 0,125 m, pero, ya que el centro de masa del carrito se encuentra a 1 cm de altura, el radio se corrige a 0,115 m.
 
-FIGURA
+```{r trayectorias, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/trayectorias.png")
+```
 
 Es por esto que la altura a considerar para la energía potencial gravitatoria en la cima del loop será de 0,24 m:
 $$ \frac{m\cdot v^2}{2} + m\cdot g \Delta h = 0.3698\,\si{\joule}$$
@@ -127,7 +129,9 @@ $$a_{cf} = \SI{29.003}{\metre\per\second\squared}$$
 
 También, se puede crear un diagrama de cuerpo libre para el carrito en la cima del loop:
 
-FIGURA
+```{r autito, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/autito.png")
+```
 
 Relacionando este diagrama de cuerpo libre con la aceleración centrífuga y la fuerza centrífuga, se obtiene que:
 
@@ -166,3 +170,91 @@ $$ g\cdot h_i = \frac{v_f^2}{2} + g h_f$$
 $$ 9.81 \cdot h_i = \frac{5.639}{2} + 0.098$$
 $$ h_i = 0.297 m $$
 Comparando esta altura mínima teórica con la altura mínima real (0,35 m), se puede notar que existe un porcentaje de error del 15,14%, lo cual se explica por la presencia de los errores antes mencionados.
+
+Dejando de lado el aspecto teórico de este experimento, en la siguiente tabla se pueden encontrar los valores obtenidos por el fotosensor, asignando colores linealmente asociados a cada conjunto de datos (velocidad y altura):
+
+```{r velprom, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/velprom.png")
+```
+Como se dijo en el análisis de errores, la altura del fotosensor afecta las velocidades registradas. Esto se debe a que el fotosensor no se encuentra exactamente en el centro del loop, por lo que, debido a la naturaleza de las velocidades tangenciales y angulares, las velocidades registradas son menores a las velocidades reales. Esto se puede apreciar en la siguiente figura: 
+```{r diametros, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/diámetros.png")
+```
+Debido a que las flechas rojas son de distinto tamaño, se debe hacer una corrección de los resultados. La velocidad tangencial que detecta el fotosensor es el equivalente a la flecha más pequeña, mientras que la velocidad real del carro es la flecha más grande. Para corregir este error, se hará uso de las definiciones de velocidad tangencial y angular. La velocidad tangencial va ligada con el tamaño del círculo, dando origen al error, y la velocidad angular será igual en los círculos negro y naranjo, debido a que esta está ligada a la frecuencia de rotación.
+
+Cabe mencionar que la altura considerada para el fotosensor es de 0,18 m en vez de 0,19 m. Esto se debe a que el fotosensor está a 0,19 m de altura respecto del suelo, pero el centro de masa del carrito está a 0,001 m de altura, por lo que la altura del fotosensor respecto del carrito es de 0,18 m.
+
+Se sabe que la velocidad tangencial es equivalente a la velocidad angular multiplicada por el radio:
+$$ v_t = \omega \cdot r $$
+Se utilizan los datos de la primera altura registrada para calcular la velocidad angular (constante en ambos círculos):
+$$ v_{t\text{ medida}} = \omega \cdot r_\text{fotosensor}$$
+$$1.034 = \omega \cdot 0.065$$
+$$\omega = \SI{15.907}{\radian\per\second}$$
+Con esto, se procede a calcular la velocidad tangencial real:
+$$v_{t \text{ ajustada}} = \omega\cdot r_\text{centro de masa}$$
+$$ v_{t \text{ ajustada}} = \SI{1.829}{\metre\per\second}$$
+
+Con esto se tiene que en realidad el carrito tiene una velocidad de 1,829 m/s, logrando evitar el error sistemático de la posición del fotosensor. Se repite el mismo procedimiento para todas las demás velocidades registradas y se organizan los resultados en la siguiente tabla:
+```{r ajustada, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/ajustada.png")
+```
+Con estos resultados, es posible calcular el porcentaje de error de los 8 casos experimentales:
+```{r error, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/error.png")
+```
+Habiendo calculado todos los errores de cada caso, al comparar los valores reales con los teóricos, se tiene que en promedio existe un error del 1,47%, un error notablemente bajo.
+
+Para lograr analizar de mejor manera los resultados, se aplicó una regresión lineal a los datos experimentales ajustados, obteniendo la ecuación $v(h) = 4.02294h + 0.165377$ ($R^2 = 0.98996$) y para los datos teóricos (linealmente ajustado a la función modelo) se tiene que $v’(h) = 3.99829v + 0.23239$ ($R^2 = 0.99784$).
+```{r scatter, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/scatter.png")
+```
+Ambas regresiones lineales muestran un muy buen ajuste ($R^2$ muy cercano a 1) y una alta similitud entre ellas (como se aprecia en el gráfico), con una pendiente con solo $0.02465$ de diferencia y una intercepción con apenas $0.067013$ de diferencia. Esto nuevamente valida el modelo teórico propuesto con un alto valor predictivo y bajo error, incluso si se simplifica linealmente.
+
+
+# Interpretación y Discusión de Resultados
+
+Dentro de las posibles posiciones del carrito en el loop, se destacan 2 situaciones, cuando este carrito se encuentra en la cima del loop, y cuando este se encuentra en la base del loop. Estas situaciones se destacan debido a que en la base, toda la energía mecánica está en forma de energía cinética, y en el segundo caso, se tiene la menor cantidad de energía cinética en todo el loop. A continuación se tiene los diagramas de cuerpo libre para ambos casos:
+```{r circulo, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/circulo.png")
+```
+A partir de ambos diagramas de cuerpo libre, se pueden sacar diversas conclusiones. La primera es la gran diferencia de magnitudes de la fuerza normal. Esto se debe a que esta fuerza tiene sentidos distintos, por lo que se ve afectada de forma distinta por el peso. A su vez, esto se debe a las diferencias de velocidades en ambos puntos. En la base hay mucha velocidad, por lo que la fuerza centrípeta y centrífuga tienen mayor magnitud que en la cima del loop, donde hay menos velocidad.
+
+La segunda conclusión tiene que ver con la magnitud de la normal. Anteriormente se calculó la velocidad mínima que tiene que tener el carrito para poder dar una vuelta en el loop sin problemas. La ecuación que se utilizó para este cálculo fue la siguiente:
+
+$$ m \cdot a_{cf} = W + F_N $$
+
+Como se dijo anteriormente, si el carrito está justo dejando de tener contacto con la montaña rusa, se tiene que la fuerza normal es 0:
+$$ m\cdot a_{cf} = W$$
+$$ \frac{m v_t^2}{r} = m \cdot g$$
+$$ \frac{v_t^2}{r} = g$$
+$$ v_t = \sqrt{g \cdot r}$$
+Con esto se tiene que la velocidad mínima que el carrito debe tener en la cima del loop para completarlo equivale a la raíz de la multiplicación entre la aceleración de la gravedad y el radio del loop. Esta velocidad en la cima del loop ($v_f$) será utilizada para calcular la velocidad que requiere el carro al iniciar el loop ($v_i$):
+$$ E_{ci} + E_{pi} = E_{cf} + E_{pf}$$
+$$ \frac{m v_i^2}{2} = \frac{mv_f^2}{2} + m\cdot g\Delta h$$
+$$\frac{v_i^2}{2} = \frac{v_f^2}{2} + g\cdot \Delta h$$
+$$\frac{v_i^2}{2} = g\cdot r + 2 \cdot g\cdot (2r)$$
+$$v_i^2 = 5 \cdot g \cdot r$$
+$$v_i = \sqrt{5 g r}$$
+$$v_i = \sqrt{5}\cdot v_f$$
+\newpage
+A partir de este cálculo, se tiene que la velocidad del carrito al iniciar el loop es √5 veces mayor que la velocidad en la cima del loop. Al analizar la fuerza centrífuga al inicio y al final del loop se tiene que:
+$$ F_{cff} = \frac{m\cdot v_f^2}{r}$$
+$$F_{cff} = \frac{mgr}{r}$$
+$$F_{cff} = m g$$
+$$F_{cff} = W$$
+\vspace{\baselineskip}
+$$ F_{cfi} = \frac{m\cdot v_f^2}{r}$$
+$$F_{cfi} = 5\frac{mgr}{r}$$
+$$F_{cfi} = 5m g$$
+$$F_{cfi} = 5W$$
+Con esta ecuación se puede decir que la fuerza centrífuga cambia drásticamente a medida que se progresa en el loop, pero lo más importante es la consideración de la fuerza centrífuga al iniciar el loop. Esta fuerza equivale a 5 veces la fuerza peso, y esto sumado a la ya existente fuerza peso, se tiene que la fuerza normal tiene que tener magnitud de 6 veces el peso. Al momento de construir una montaña rusa en la vida real, la consideración de estas fuerzas es de suma importancia, ya que cuando el carrito se encuentra en la base del loop, una persona presente en la montaña rusa sentirá que su peso se multiplica 6 veces. Esto es conocido como una fuerza de 6 g, lo que quiere decir que el cuerpo experimenta una aceleración de 6 veces la aceleración de gravedad, que en períodos extendidos de tiempo puede provocar lo que se denomina como G-LOC (G-force induced Loss Of Consciousness, o pérdida de conciencia inducida por fuerza G), dado que la sangre no es capaz de llegar al cerebro gracias a la gran cantidad de fuerza G a la que se somete la persona.^[Cunliffe, Charles. “Fuerzas Acelerativas - G-LOC.” Conceptos Básicos de Fisiología de Aviación, Fuerza Aérea de Chile, 2004.]
+
+Por otro lado, regresando a los valores reales de la experimentación, se tiene que los porcentajes de errores tienden al 1,47%. Esto se debe en gran parte a los efectos generados por el error humano mencionado en el análisis de errores, debido a que todos los valores de velocidad del carrito son mayores a los teóricos. Respecto al roce, este error tiene efectos despreciables debido a las ruedas del carrito, las cuales hacen que el roce sea casi nulo.
+
+# Conclusión
+Luego de haber realizado el experimento y todos los cálculos teóricos relevantes, se logró determinar con éxito ecuaciones que permiten relacionar las distintas interacciones de las energías con el carrito (principio de la conservación de la energía), y relacionar estas energías con las distintas fuerzas que están presentes en el sistema ($\sum F = m\cdot a_{cf} = W + F_N$). Con esto se logró calcular la velocidad mínima que necesita el carrito teóricamente para poder completar el loop sin problemas (1,062 m/s), y con esto, la altura mínima teórica donde el carrito debe partir para lograr esta velocidad (0,297 m).
+
+Al comparar las velocidades registradas (luego de haberlas corregido) con las velocidades teóricas, se encontró un porcentaje de error del 1,47%, lo cual se explica por el error humano cuando el carrito se deja caer por la rampa de la montaña rusa (es casi imposible dejar caer el carrito con velocidad inicial nula), y también debido a que los efectos del roce fueron eliminados de forma efectiva, por lo que la hipótesis que mencionaba que se tendría un porcentaje de error menor al 5% es correcta.
+
+Por la misma razón anterior, al comparar la altura mínima real (0,35 m) con la altura mínima teórica (0,297 m), se tiene un porcentaje de error del 15,14% (hay que tomar en cuenta que el roce hace efecto durante todo el trayecto, y ya que este trayecto es largo, se puede esperar un mayor efecto del roce). Tomando en cuenta el diámetro del loop (0,25 m), se puede decir que se necesitó partir de una altura 1,4 veces mayor al diámetro del loop, para poder dar una vuelta completa, demostrando que la segunda hipótesis propuesta (la altura que se necesitaría para dar una vuelta al loop equivalía a 1,25 veces el diámetro del loop), es incorrecta.
+
