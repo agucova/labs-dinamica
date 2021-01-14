@@ -144,7 +144,7 @@ knitr::include_graphics("./figs/acelyfuerza.png")
 Dado que a todas las velocidades el carrito logra dar una vuelta al loop sin caerse, es importante calcular teóricamente a qué velocidad mínima tiene que ir el carro sin que se caiga. Esto ocurre cuando en el equilibrio de fuerzas, la normal es nula, ya que esta fuerza siempre aparece cuando el objeto está en contacto con la superficie (sin normal, no hay contacto), por lo que se puede armar la siguiente ecuación:
 
 $$m\cdot a_{cf} = W + F_N$$
-$$ m\cdot\frac{v_t^2}{r} - m\cdot g \geq 0 $$
+$$ F_N \geq 0 \rightarrow m\cdot\frac{v_t^2}{r} - m\cdot g \geq 0 $$
 $$\frac{v_t^2}{r} - g \geq 0 $$
 $$ v_t \geq \sqrt{g \cdot r}$$
 $$ v_t \geq \sqrt{9.81\cdot 0.115}$$
@@ -161,7 +161,7 @@ Y con esta velocidad inicial mínima se puede calcular la altura mínima donde d
 
 
 $$ E_{ci} + E_{pi} = E_{cf} + E_{pf}$$
-$$ 0 + m\cdot g \cdot h_i = \frac{mv^2}{2} + m\cdot\g\h_f$$
+$$ 0 + m\cdot g \cdot h_i = \frac{mv^2}{2} + m\cdot g \cdot h_f$$
 $$ g\cdot h_i = \frac{v_f^2}{2} + g h_f$$
 $$ 9.81 \cdot h_i = \frac{5.639}{2} + 0.098$$
 $$ h_i = 0.297 m $$
