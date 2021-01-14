@@ -7,6 +7,7 @@ header-includes:
   - \usepackage[spanish]{babel}
   - \usepackage{siunitx}
   - \usepackage{tikz}
+  - \usepackage{float}
   - \usetikzlibrary{scopes}
   - \sisetup{output-decimal-marker = {,}}
   - \setcitestyle{super}
@@ -14,6 +15,7 @@ header-includes:
   - \renewcommand*{\citet}[1]{{\cite{#1}}}
   - \rhead{Informe de Laboratorio}
   - \sisetup{per-mode=fraction}
+  - \floatplacement{figure}{H}
 output:
   tufte::tufte_handout:
     citation_package: natbib
@@ -31,6 +33,7 @@ knitr::opts_chunk$set(cache.extra = packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 ```
 
+
 **Resumen:** En este informe se buscó identificar y analizar el comportamiento de las distintas energías que pueden afectar a un objeto, específicamente la energía cinética y potencial gravitatoria. Junto a esto, se busca también entender cómo estas energías se relacionan con las fuerzas que el mismo objeto siente en distintas situaciones. Para esto, se creó una montaña rusa con un loop en la cual se deja caer un carrito a distintas alturas, para que así, este tenga una energía inicial distinta en distintas repeticiones. Luego de haber experimentado, se logró determinar teórica y experimentalmente las condiciones necesarias para que el carrito logre dar una vuelta al loop, haciendo uso de conocimientos relacionados con la ley conservación de energía y la segunda ley de Newton. Finalmente, se concluyó que el diseño experimental fue satisfactorio, pues los porcentajes de error entre valores teóricos y experimentales fueron bajos.
 
 # Introducción
@@ -38,19 +41,19 @@ El objetivo de este laboratorio es lograr identificar y relacionar los distintos
 
 Para lograr cumplir los objetivos, se llevará a cabo la confección de una montaña rusa con un “loop”, sobre la cual se lanzará un carrito. Este experimento es adecuado para el propósito planteado, ya que se puede variar la altura desde la que se lanza el carrito, y ver cómo esto se ve reflejado en la velocidad en distintos puntos de la pista.
 
-Teniendo esto en cuenta, también se tiene como objetivo encontrar una ecuación que relacione las energías y las fuerzas que están actuando en el experimento, para determinar las condiciones adecuadas que permitan que el auto pueda completar el loop de la montaña rusa.
+Teniendo esto en cuenta, también se tiene como objetivo encontrar ecuaciones que relacionen las energías y las fuerzas que están actuando en el experimento, para determinar las condiciones adecuadas que permitan que el carro pueda completar el loop de la montaña rusa.
 
-Al momento de realizar el experimento, se espera que existan errores tanto sistemáticos como aleatorios, pero se estima que sus efectos no generarán un porcentaje de error mayor al 5% debido a las numerosas repeticiones y la precisión del sensor siendo utilizado. Debido a estos errores, se espera que la altura inicial necesaria para que una masa conocida de una vuelta al loop sin caerse sea de al menos 1,25 veces el diámetro del loop, en vez de 1 vez el diámetro.
+Al momento de realizar el experimento, se espera que existan errores tanto sistemáticos como aleatorios, pero se estima que sus efectos no generarán un porcentaje de error mayor al 5% debido a las numerosas repeticiones y la precisión del sensor siendo utilizado. Además se espera que la altura inicial necesaria para que una masa conocida de una vuelta al loop sin caerse sea de al menos 1,25 veces el diámetro del loop, en vez de 1 vez el diámetro.
 
 ## Marco Teórico
 
 Este informe trata principalmente sobre la energía y sus transformaciones, por lo que es muy importante conocer el concepto de energía mecánica. La energía mecánica es la suma de las energías ligadas al movimiento, a la gravedad y a la elasticidad, sin embargo, para efectos de este trabajo se considerarán exclusivamente las primeras 2, pues en el experimento no se presenta energía elástica. Todas estas energías se miden en Joules [J], unidad caracterizada por: 
 $$ \left[J\right] = \left[N\right] \cdot \left[m\right] $$
-La energía que un cuerpo posee debido a su movimiento es denominada energía cinética, el trabajo necesario para acelerar el cuerpo a cierta velocidad. La ecuación que determina el valor de esta energía relaciona la masa del objeto, y su velocidad: 
+La energía que un cuerpo posee debido a su movimiento es denominada energía cinética, equivalente al trabajo necesario para acelerar el cuerpo a cierta velocidad. La ecuación que determina el valor de esta energía relaciona la masa del objeto, y su velocidad: 
 $$ E_c = \frac{mv^2}{2} $$
 En esta ecuación se puede apreciar que si la velocidad es nula, entonces la energía cinética del objeto es también nula.
 
-Por otro lado, se tiene a la energía potencial ligada a la gravedad, llamada energía potencial gravitatoria. Esta expresión representa la energía a disposición del objeto debido a su posición relativa a un cuerpo gravitatorio, pudiendo ser transformada, por ejemplo, en energía cinética. La ecuación que permite calcular esta energía es equivalente al trabajo (fuerza * distancia) ejercido por la fuerza peso durante la distancia de caída h:
+Por otro lado, se tiene a la energía potencial ligada a la gravedad, llamada energía potencial gravitatoria. Esta expresión representa la energía a disposición del objeto debido a su posición relativa a un cuerpo gravitatorio, pudiendo ser transformada, por ejemplo, en energía cinética. La ecuación que permite calcular esta energía es equivalente al trabajo ($F \cdot d$) ejercido por la fuerza peso durante la distancia de caída h:
 
 $$ E_p = m g \Delta h $$
 $$ E_p = W \Delta h $$
@@ -58,23 +61,23 @@ $$ E_p = W \Delta h $$
 Debido al principio de la conservación de la energía, la segunda ley de la termodinámica, en un sistema aislado no sujeto a fuerzas no-conservativas (como el roce), se espera que la suma de la energía cinética y la energía potencial gravitatoria se mantenga constante, entendido que la única transformación posible sería entre ambas formas de energía. Esta suma recibe el nombre de energía mecánica, y esta relación recibe el nombre del principio de la conversación de la energía mecánica:
 
 $$E_m = E_c + E_p$$
-$$\Delta E_k + \Delta E_g = 0$$
+$$\Delta E_c + \Delta E_p = 0$$
 $$\Delta E_m = 0$$
 
-Esta definición es de suma importancia, ya que servirá de base de todos los cálculos teóricos sobre este experimento.
+Esta definición es de suma importancia, ya que servirá de base para todos los cálculos teóricos relacionados al experimento.
 
 Junto a la energía, también es necesario definir cómo actúan las fuerzas en la masa conocida cuando se está dando vuelta al loop, siendo la más importante la fuerza centrífuga.
 
-La fuerza centrífuga es una fuerza ficticia que el objeto siente cuando cambia de trayectoria. Ya que en este caso se tiene un loop (circular), la masa conocida siempre estará afectada por esta fuerza, que puede ser representada como:
+La fuerza centrífuga es una fuerza ficticia que el objeto experimenta cuando cambia de trayectoria. Ya que en este caso se tiene un loop (circular), la masa conocida siempre estará afectada por esta fuerza, que puede ser representada como:
 
 $$F_{cf} = m\cdot a_{cf} $$
 
 A su vez, la aceleración centrífuga es equivalente al cuadrado de la velocidad tangencial, dividida en el radio de giro:
 
-$$ A_{cf} = \frac{v_t^2}{r}$$
+$$ a_{cf} = \frac{v_t^2}{r}$$
 
 Con esto, se tiene una ecuación que permite calcular la fuerza centrífuga de un objeto que tiene trayectoria circular:
-$$\sum F = m\cdot a_{cf} = m\cdot\frac{v^2}{r}$$
+$$\sum F = m\cdot a_{cf} = m\cdot\frac{v_t^2}{r}$$
 Junto a la fuerza centrífuga, se podrán encontrar en este experimento la fuerza peso, que relaciona la masa del objeto con la aceleración de gravedad y siempre apunta hacia abajo, y la fuerza normal, que es la fuerza que ejerce la superficie en sentido opuesto a la fuerza que el objeto aplica sobre ella, con la misma magnitud.
 
 ## Montaje y procedimiento experimental
@@ -88,7 +91,7 @@ Para montar el sistema de reticulado de montaña rusa, se deberá anclar firmeme
 
 Tras realizar esto, para la segunda parte del experimento se instala la fotocelda (que medirá la velocidad del carro) en la parte superior del loop y se conecta al computador utilizando un adaptador USB. Luego, usando el programa Capstone se configura la fotocelda seleccionando el sensor fotocelda y la lámina obturadora seleccionando la regleta con una constante de 0,01 metros. Una vez calibrado el sensor, se seleccionan 8 alturas en el riel sobre la altura mínima encontrada experimentalmente. Para cada altura, se registra su valor, se suelta el carro desde el reposo y se anota la velocidad del carro en la parte superior del loop medida por el programa. Se repite este procedimiento 5 veces para cada una de las 8 alturas con la finalidad de obtener datos más acertados. Finalmente, se registra la medida del radio del loop. 
 
-```{r parametros, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r parametros, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap = "Valores de los parámetros experimentales."}
 knitr::include_graphics("./figs/parámetros.png")
 ```
 
@@ -107,19 +110,19 @@ Por último, se tiene el error aleatorio de la precisión de la fotocelda, cuyo 
 Partiendo desde el análisis teórico, es importante calcular los valores de las velocidades teóricas para poder compararlas con las velocidades reales.
 
 Para calcular las velocidades teóricas se utilizará el principio de la conservación de la energía mecánica. Para el primer caso se tiene que el carrito parte del reposo (velocidad nula) a 0,410 m de altura:
-$$ \Delta E_{m} = (E_{cf} + E_{pi}) - (0 + (0.09196 \cdot 9.81 \cdot 0.41)) = 0$$
+$$ \Delta E_{m} = (E_{cf} + E_{fi}) - (0 + (0.09196 \cdot 9.81 \cdot 0.41)) = 0$$
 $$E_{cf} + E_{pf} = 0.3698\,\si{\joule}$$
 También se sabe que el radio del loop es de 0,125 m, pero, ya que el centro de masa del carrito se encuentra a 1 cm de altura, el radio se corrige a 0,115 m.
 
-```{r trayectorias, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r trayectorias, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap = "Trayectoria corregida considerando el centro de mesa, y la corrección en el radio del loop."}
 knitr::include_graphics("./figs/trayectorias.png")
 ```
 
 Es por esto que la altura a considerar para la energía potencial gravitatoria en la cima del loop será de 0,24 m:
-$$ \frac{m\cdot v^2}{2} + m\cdot g \Delta h = 0.3698\,\si{\joule}$$
-$$ \frac{0.09196 \cdot v^2}{2}+ 0.09196\cdot 9.81 \cdot 0.24 = 0.3698\,\si{\joule}$$
-$$ v^2 = \frac{0.1533}{0.04598}\si{\metre\squared\per\second\squared} $$
-$$ v = \SI{1.826}{\metre\per\second} $$
+$$ \frac{m\cdot v_t^2}{2} + m\cdot g \Delta h = 0.3698\,\si{\joule}$$
+$$ \frac{0.09196 \cdot v_t^2}{2}+ 0.09196\cdot 9.81 \cdot 0.24 = 0.3698\,\si{\joule}$$
+$$ v_t^2 = \frac{0.1533}{0.04598}\si{\metre\squared\per\second\squared} $$
+$$ v_t = \SI{1.826}{\metre\per\second} $$
 Con este cálculo hecho, se obtiene que la velocidad tangencial teórica del carrito en la cima del loop cuando este se deja caer desde 0,410 metros de altura es de 1,8259 m/s. 
 
 Utilizando la fórmula de la aceleración centrífuga, se tiene que:
@@ -129,7 +132,7 @@ $$a_{cf} = \SI{29.003}{\metre\per\second\squared}$$
 
 También, se puede crear un diagrama de cuerpo libre para el carrito en la cima del loop:
 
-```{r autito, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r autito, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap = "DCL en la cima de loop."}
 knitr::include_graphics("./figs/autito.png")
 ```
 
@@ -141,7 +144,7 @@ $$ 2.6671 = 0.9021 + F_N$$
 $$F_N = \SI{1.765}{\newton}$$
 
 Repitiendo el mismo procedimiento que se hizo para este caso, se calcula la velocidad, aceleración y fuerza normal teórica de los 7 casos restantes. 
-```{r fuerzayacel, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r fuerzayacel, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap="Valores calculados de aceleración y fuerza normal teóricas."}
 knitr::include_graphics("./figs/acelyfuerza.png")
 ```
 
@@ -165,19 +168,19 @@ Y con esta velocidad inicial mínima se puede calcular la altura mínima donde d
 
 
 $$ E_{ci} + E_{pi} = E_{cf} + E_{pf}$$
-$$ 0 + m\cdot g \cdot h_i = \frac{mv^2}{2} + m\cdot g \cdot h_f$$
+$$ 0 + m\cdot g \cdot h_i = \frac{mv_f^2}{2} + m\cdot g \cdot h_f$$
 $$ g\cdot h_i = \frac{v_f^2}{2} + g h_f$$
 $$ 9.81 \cdot h_i = \frac{5.639}{2} + 0.098$$
-$$ h_i = 0.297 m $$
+$$ h_i = \SI{0.297}{\metre} $$
 Comparando esta altura mínima teórica con la altura mínima real (0,35 m), se puede notar que existe un porcentaje de error del 15,14%, lo cual se explica por la presencia de los errores antes mencionados.
 
 Dejando de lado el aspecto teórico de este experimento, en la siguiente tabla se pueden encontrar los valores obtenidos por el fotosensor, asignando colores linealmente asociados a cada conjunto de datos (velocidad y altura):
 
-```{r velprom, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r velprom, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap = "Tabla de resultados obtenidos, junto con sus promedios respectivos."}
 knitr::include_graphics("./figs/velprom.png")
 ```
 Como se dijo en el análisis de errores, la altura del fotosensor afecta las velocidades registradas. Esto se debe a que el fotosensor no se encuentra exactamente en el centro del loop, por lo que, debido a la naturaleza de las velocidades tangenciales y angulares, las velocidades registradas son menores a las velocidades reales. Esto se puede apreciar en la siguiente figura: 
-```{r diametros, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r diametros, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap = "Corrección de las velocidades medidas por el fotosensor."}
 knitr::include_graphics("./figs/diámetros.png")
 ```
 Debido a que las flechas rojas son de distinto tamaño, se debe hacer una corrección de los resultados. La velocidad tangencial que detecta el fotosensor es el equivalente a la flecha más pequeña, mientras que la velocidad real del carro es la flecha más grande. Para corregir este error, se hará uso de las definiciones de velocidad tangencial y angular. La velocidad tangencial va ligada con el tamaño del círculo, dando origen al error, y la velocidad angular será igual en los círculos negro y naranjo, debido a que esta está ligada a la frecuencia de rotación.
@@ -195,17 +198,17 @@ $$v_{t \text{ ajustada}} = \omega\cdot r_\text{centro de masa}$$
 $$ v_{t \text{ ajustada}} = \SI{1.829}{\metre\per\second}$$
 
 Con esto se tiene que en realidad el carrito tiene una velocidad de 1,829 m/s, logrando evitar el error sistemático de la posición del fotosensor. Se repite el mismo procedimiento para todas las demás velocidades registradas y se organizan los resultados en la siguiente tabla:
-```{r ajustada, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r ajustada, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap="Velocidades ajustadas con la corrección ya mencionada, en comparación con los promedios experimentales y sus respectivos cuadrados."}
 knitr::include_graphics("./figs/ajustada.png")
 ```
 Con estos resultados, es posible calcular el porcentaje de error de los 8 casos experimentales:
-```{r error, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r error, cache=TRUE, echo=FALSE, out.width="85%", dpi=300, fig.align="center", fig.cap = "Porcentaje de errores entre las predicciones y las mediciones corregidas."}
 knitr::include_graphics("./figs/error.png")
 ```
 Habiendo calculado todos los errores de cada caso, al comparar los valores reales con los teóricos, se tiene que en promedio existe un error del 1,47%, un error notablemente bajo.
 
 Para lograr analizar de mejor manera los resultados, se aplicó una regresión lineal a los datos experimentales ajustados, obteniendo la ecuación $v(h) = 4.02294h + 0.165377$ ($R^2 = 0.98996$) y para los datos teóricos (linealmente ajustado a la función modelo) se tiene que $v’(h) = 3.99829v + 0.23239$ ($R^2 = 0.99784$).
-```{r scatter, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r scatter, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap = "Dispersión de los datos teóricos y experimentales, junto con sus regresiones lineales y error estándar."}
 knitr::include_graphics("./figs/scatter.png")
 ```
 Ambas regresiones lineales muestran un muy buen ajuste ($R^2$ muy cercano a 1) y una alta similitud entre ellas (como se aprecia en el gráfico), con una pendiente con solo $0.02465$ de diferencia y una intercepción con apenas $0.067013$ de diferencia. Esto nuevamente valida el modelo teórico propuesto con un alto valor predictivo y bajo error, incluso si se simplifica linealmente.
@@ -214,7 +217,7 @@ Ambas regresiones lineales muestran un muy buen ajuste ($R^2$ muy cercano a 1) y
 # Interpretación y Discusión de Resultados
 
 Dentro de las posibles posiciones del carrito en el loop, se destacan 2 situaciones, cuando este carrito se encuentra en la cima del loop, y cuando este se encuentra en la base del loop. Estas situaciones se destacan debido a que en la base, toda la energía mecánica está en forma de energía cinética, y en el segundo caso, se tiene la menor cantidad de energía cinética en todo el loop. A continuación se tiene los diagramas de cuerpo libre para ambos casos:
-```{r circulo, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+```{r circulo, cache=TRUE, echo=FALSE, out.width="70%", dpi=300, fig.align="center", fig.cap = "Diagrama de cuerpo libre del carrito en posiciones relevantes."}
 knitr::include_graphics("./figs/circulo.png")
 ```
 A partir de ambos diagramas de cuerpo libre, se pueden sacar diversas conclusiones. La primera es la gran diferencia de magnitudes de la fuerza normal. Esto se debe a que esta fuerza tiene sentidos distintos, por lo que se ve afectada de forma distinta por el peso. A su vez, esto se debe a las diferencias de velocidades en ambos puntos. En la base hay mucha velocidad, por lo que la fuerza centrípeta y centrífuga tienen mayor magnitud que en la cima del loop, donde hay menos velocidad.
