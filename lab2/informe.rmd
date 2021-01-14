@@ -2,7 +2,7 @@
 title: "Informe del Tercer Laboratorio de Dinámica"
 runningheader: "Tercer laboratorio de Dinámica"
 author: "Nicolás Cañete, Joaquín Díaz y Agustín Covarrubias"
-date: "06-01-2021"
+date: "13-01-2021"
 header-includes:
   - \usepackage[spanish]{babel}
   - \usepackage{siunitx}
@@ -13,6 +13,7 @@ header-includes:
   - \renewcommand*{\citep}[1]{{\cite{#1}}}
   - \renewcommand*{\citet}[1]{{\cite{#1}}}
   - \rhead{Informe de Laboratorio}
+  - \sisetup{per-mode=fraction}
 output:
   tufte::tufte_handout:
     citation_package: natbib
@@ -30,279 +31,138 @@ knitr::opts_chunk$set(cache.extra = packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 ```
 
-**Resumen:** En este informe se buscó medir las fuerzas que actúan sobre un objeto que se encuentra dentro de un elevador, mediante la realización de dos experimentos, uno en movimiento de subida y otro en bajada. Posteriormente, se analizaron los resultados obtenidos teniendo en consideración errores tanto sistemáticos como aleatorios, para lograr describir el fenómeno presenciado. Se formuló un modelo teórico fundamentado en la física newtoniana, utilizando las leyes de Newton y diagramas de cuerpo libre (DCL). Contrastando los valores teóricos y los experimentales para la fuerza normal en intervalos específicos se encuentra una alta concordancia con errores, dentro de la hipótesis propuesta.
-
+**Resumen:** En este informe se buscó identificar y analizar el comportamiento de las distintas energías que pueden afectar a un objeto, específicamente la energía cinética y potencial gravitatoria. Junto a esto, se busca también entender cómo estas energías se relacionan con las fuerzas que el mismo objeto siente en distintas situaciones. Para esto, se creó una montaña rusa con un loop, donde se deja caer un carrito a distintas alturas, para que así, este tenga una energía inicial distinta en cada intento. Luego de haber experimentado, se logró determinar teórica y experimentalmente las condiciones necesarias para que el carrito logre dar una vuelta al loop, haciendo uso de conocimientos relacionados con conservación de energía y Segunda Ley de Newton. Finalmente, se concluyó que el diseño experimental fue acertado, pues los porcentajes de error entre valores teóricos y experimentales fueron bajos.
 
 # Introducción
-El objetivo principal de este laboratorio es lograr identificar, caracterizar y medir las fuerzas que actúan constantemente sobre objetos cotidianos. También se busca obtener conclusiones sobre cómo se ven afectadas estas fuerzas bajo distintas condiciones, las cuales serán estudiadas mediante un experimento, el cual consiste en la confección de un elevador pequeño con una masa conocida dentro.
+El objetivo de este laboratorio es lograr identificar y relacionar los distintos tipos de energías que puede tener un cuerpo, con las fuerzas que pueden estar interactuando con este. Junto a esto, también se busca relacionar cómo se transforman los distintos tipos de energías antes mencionadas, y cómo esto afecta al cuerpo en cuestión.
 
-Un elevador es un buen modelo experimental para cumplir el objetivo propuesto, ya que en este existen varias fuerzas que actúan constantemente, y las magnitudes de estas fuerzas pueden ser fácilmente manipuladas, caracterizadas y analizadas. Además, ya que se puede colocar una masa conocida dentro del elevador, se puede también identificar las fuerzas que se transfieren del elevador a este, analizar cómo ocurre este fenómeno y cómo cambian las magnitudes de las fuerzas que afectan a la masa conocida.
+Para lograr cumplir los objetivos, se llevará a cabo la confección de una montaña rusa con un “loop”, sobre la cual se lanzará carrito. Este experimento es idóneo para esto, ya que se puede variar la altura desde la que se lanza el carrito, y ver cómo esto se ve reflejado en la velocidad en distintos puntos de la pista.
 
-Al momento de realizar este experimento se espera que el porcentaje de error se mantenga bajo el 5% al comparar los resultados reales y los valores teóricos. Esto porque se estima que se logrará mitigar los errores sistemáticos y aleatorios que puedan ocurrir durante la experimentación.
+Teniendo esto en cuenta, también se tiene como objetivo encontrar una ecuación que relacione las energías y las fuerzas que están actuando en el experimento, para determinar las condiciones adecuadas que permitan que el auto pueda completar el loop de la montaña rusa.
 
-Dicho esto, también se espera que se logre identificar exclusivamente las fuerzas (que afectan directamente a la masa conocida) de peso y normal en el análisis teórico del experimento, y poder caracterizar mediante una ecuación como varían las condiciones de un objeto dentro del elevador cuando varían estas fuerzas.
-
+Al momento de realizar el experimento, se espera que existan errores tanto sistemáticos como aleatorios, pero se estima que sus efectos no generarán un porcentaje de error mayor al 5% debido a las numerosas repeticiones y la precisión del sensor siendo utilizado. Debido a estos errores, se espera que la altura inicial necesaria para que una masa conocida de una vuelta al loop sin caerse sea de al menos 1,25 veces el diámetro del loop, en vez de 1 vez el diámetro.
 
 ## Marco Teórico
 
-Este laboratorio se centra exclusivamente en la física newtoniana, tomando como punto de partida las tres leyes de Newton y en específico la segunda ley de Newton, también conocida como la Ley Fundamental de la Dinámica:
+Este informe trata principalmente sobre la energía y sus transformaciones, por lo que es muy importante conocer el concepto de energía mecánica. La energía mecánica es la suma de las energías ligadas al movimiento, a la gravedad y a la elasticidad, sin embargo, para efectos de este trabajo se considerarán exclusivamente las primeras 2, pues en el experimento no se presenta energía elástica. Todas estas energías se miden en Joules [J], unidad caracterizada por: 
+$$ \left[J\right] = \left[N\right] \cdot \left[m\right] $$
+La energía que un cuerpo posee debido a su movimiento es denominada energía cinética, el trabajo necesario para acelerar el cuerpo a cierta velocidad. La ecuación que determina el valor de esta energía relaciona la masa del objeto, y su velocidad: 
+$$ E_c = \frac{mv^2}{2} $$
+En esta ecuación se puede apreciar que si la velocidad es nula, entonces la energía cinética del objeto es también nula.
 
-> "El cambio de movimiento es directamente proporcional a la fuerza motriz impresa y ocurre según la línea recta a lo largo de la cual aquella fuerza se imprime."
->
-> `r tufte::quote_footer('--- Isaac Newton')`^[Newton, I. (1687). Philosophiæ naturalis principia mathematica. Pág. 199.]
+Por otro lado, se tiene a la energía potencial ligada a la gravedad, llamada energía potencial gravitatoria. Esta expresión representa la energía a disposición del objeto debido a su posición relativa a un cuerpo gravitatorio, pudiendo ser transformada, por ejemplo, en energía cinética. La ecuación que permite calcular esta energía es equivalente al trabajo (fuerza * distancia) ejercido por la fuerza peso durante la distancia de caída h:
 
+$$ E_p = m g \Delta h $$
+$$ E_p = W \Delta h $$
 
-De esta ley surge una ecuación vectorial que logra relacionar las variables de fuerza, masa y aceleración, de la siguiente manera:
+Debido al principio de la conservación de la energía, la segunda ley de la termodinámica, en un sistema aislado no sujeto a fuerzas no-conservativas (como el roce), se espera que la suma de la energía cinética y la energía potencial gravitatoria se mantenga constante, entendido que la única transformación posible sería entre ambas formas de energía. Esta suma recibe el nombre de energía mecánica, y esta relación recibe el nombre del principio de la conversación de la energía mecánica:
 
-$$ \sum F = m \cdot a $$
+$$E_m = E_c + E_p$$
+$$\Delta E_k + \Delta E_g = 0$$
+$$\Delta E_m = 0$$
 
-Esta ecuación permitirá calcular los valores teóricos a obtener en la experimentación, además de permitir determinar posibles fuentes de error en la realización del experimento.
+Esta definición es de suma importancia, ya que servirá de base de todos los cálculos teóricos sobre este experimento.
 
-Las fuerzas pueden dividirse en varios tipos, tales como la fuerza aplicada, peso, normal, roce, tensión, entre otros, pero para este laboratorio, se considerarán solamente las fuerzas de peso y normal, entendido que predominan el modelo físico.
+Junto a la energía, también es necesario definir cómo actúan las fuerzas en la masa conocida cuando se está dando vuelta al loop, siendo la más importante la fuerza centrífuga.
 
-La fuerza de peso es una fuerza que actúa sobre un cuerpo cuando este se somete a un campo gravitatorio. El vector de esta fuerza parte desde el centro de masa del cuerpo, y su dirección es hacia el centro del campo gravitatorio. Para este experimento, el campo gravitatorio surge del centro de la Tierra, por lo que se asume que la fuerza peso apunta siempre hacia abajo. La fuerza peso puede ser descrita en este caso como:
+La fuerza centrífuga es una fuerza ficticia que el objeto siente cuando cambia de trayectoria. Ya que en este caso se tiene un loop (circular), la masa conocida siempre estará afectada por esta fuerza, que puede ser representada como:
 
-$$ W = m \cdot g $$
+$$F_{cf} = m\cdot a_{cf} $$
 
-Por otro lado, se tiene la fuerza normal, producto del principio de acción y reacción (3.ª Ley de Newton) y es ejercida por la superficie en la que se encuentra un cuerpo. La fuerza normal tiene igual magnitud que la fuerza ejercida por el cuerpo, pero va en sentido contrario.
+A su vez, la aceleración centrífuga es equivalente al cuadrado de la velocidad tangencial, dividida en el radio de giro:
 
-```{r fnormal, cache=TRUE, echo=FALSE, fig.align="center", out.width="30%"}
-knitr::include_graphics("./figs/dcl2.png")
-```
+$$ A_{cf} = \frac{v_t^2}{r}$$
 
-Ya que en este experimento se medirán distintas fuerzas que actúan sobre un mismo objeto, es necesario conocer el concepto de “Diagrama de Cuerpo Libre”, una representación gráfica de las fuerzas que actúan sobre un objeto particular. Esto nos permite facilitar el análisis de las fuerzas presentes en un sistema, el cual puede llegar a contar con muchos objetos. A continuación se presentan ejemplos de diagramas de cuerpo libre:
+Con esto, se tiene una ecuación que permite calcular la fuerza centrífuga de un objeto que tiene trayectoria circular:
+$$\sum F = m\cdot a_{cf} = m\cdot\frac{v^2}{r}$$
+Junto a la fuerza centrífuga, se podrán encontrar en este experimento la fuerza peso, que relaciona la masa del objeto con la aceleración de gravedad y siempre apunta hacia abajo, y la fuerza normal, que es la fuerza que ejerce la superficie en sentido opuesto a la fuerza que el objeto aplica sobre ella, con la misma magnitud.
 
-```{r diagramararo, cache=TRUE, echo=FALSE, out.width="80%", fig.align="center"}
-knitr::include_graphics("./figs/dcl.png")
-```
+## Montaje y procedimiento experimental
+Considerando el objetivo de identificar y relacionar la energía de un cuerpo con las fuerzas que interactúan con él, además de estudiar las transformaciones de energía, se realizará el montaje de una pequeña montaña rusa, para lo que se requerirán los siguientes materiales:
 
-Como se puede observar en la imagen, todas las fuerzas identificadas en los diagramas de cuerpo libre de ambos objetos tienen un nombre. Esto es para poder diferenciar y caracterizar los distintos tipos de fuerzas, y así evitar confusiones. Por ejemplo, en este caso, “T” es una fuerza de tensión y “N” es una fuerza normal. A su vez, cada fuerza representada tiene flechas de distintos tamaños, lo cual indica la magnitud de cada fuerza. Una flecha más grande simboliza una fuerza de gran magnitud y viceversa. Por ejemplo, en el segundo diagrama de cuerpo libre, se puede observar que la fuerza peso (m2g) tiene mayor magnitud que la fuerza de tensión (T), por lo que el cuerpo descenderá con el paso del tiempo.
-
-Finalmente, en el experimento se necesitará identificar intervalos de tiempo donde una cierta variable muestra un cambio lineal (en este caso, velocidad con aceleración constante), para lo que se usará el coeficiente de correlación de Pearson, que cuantificará la correlación lineal entre el tiempo y la variable escogida. La fórmula es la siguiente:
-
-$$r_{x, y} = \frac{cov(x, y)}{\sigma_x\cdot\sigma_y}$$
-
-Si se escoge un intervalo correctamente, se espera un $r$ muy cercano a $-1$ o a $1$.
-
-# Montaje y procedimiento experimental
-Dado el objetivo de querer lograr identificar distintas fuerzas que actúan sobre objetos cotidianos, es necesario llevar a cabo un experimento que logre mostrar de forma efectiva la interacción de objetos mediante fuerzas. Por lo anterior, se propone como experimento la confección de un elevador.
-
-Para construir este elevador, se requerirán los siguientes materiales:
-
-* Sistema de elevador reticulado pasco
-* Soporte para masas
-* 2 soportes universales
-* 2 prensas
-* 2 pinzas de doble nuez
-* 1 barra metálica
-* Cuerpo de masa aproximada de 0,5 kg
-* Caja plástica con poliestireno expandido
-* Sensor de movimiento rotacional pasco
-* Celda de carga (balanza)
+* Sistema de reticulado pasco - “Montaña rusa”
+* Fotocelda
 * Computador con programa “Capstone”
-* Balanza digital
-* Amplificador de carga “Pasco, Pasport-Load Cell Amplifier”
 
-Para comenzar la construcción del elevador, se colocan los 2 soportes universales en el borde de una mesa, para luego fijarlos usando las prensas. Posteriormente, se instala la barra metálica de manera horizontal en los soportes universales, utilizando las 2 pinzas de doble nuez, de forma que quede un extremo de la barra fuera de la mesa. A continuación, se coloca la caja plástica con poliestireno expandido debajo del extremo de la barra que sobresale de la mesa, para evitar que se dañe el elevador al dejarlo caer y se ajusta el sensor de movimiento rotacional en un extremo de la barra horizontal. Luego, se abre el programa “Capstone” en el computador y se conecta el sensor rotacional a un adaptador, para luego conectarlo al PC por USB.
+Para montar el sistema de reticulado de montaña rusa, se deberá anclar firmemente la estructura a un soporte universal, utilizando una pinza de nuez. La primera parte del experimento consiste en encontrar la altura mínima sobre el riel desde la cual el carro logra dar una vuelta completa al loop, para ello, primero calculamos teóricamente esta altura y soltamos el carro desde el reposo en el punto encontrado, posteriormente, se prueba con alturas cercanas hasta encontrar la menor altura experimental desde donde se logra el objetivo mencionado y se registra su valor.
 
-Por último, se calcula la masa del objeto que servirá como peso en el interior del elevador, y se coloca sobre el sostenedor. En este caso, la masa resultante fue de 0,4496 kilogramos. El sistema completo del elevador se cuelga por sobre la polea más externa del sensor rotacional.
+Tras realizar esto, para la segunda parte del experimento se instala la fotocelda (que medirá la velocidad del carro) en la parte superior del loop y se conecta al computador utilizando un adaptador USB. Luego, usando el programa Capstone se configura la fotocelda seleccionando el sensor fotocelda y la lámina obturadora seleccionando la regleta con una constante de 0,01 metros. Una vez calibrado el sensor, se seleccionan 8 alturas en el riel sobre la altura mínima encontrada experimentalmente. Para cada altura, se registra su valor, se suelta el carro desde el reposo y se anota la velocidad del carro en la parte superior del loop medida por el programa. Se repite este procedimiento 5 veces para cada una de las 8 alturas con la finalidad de obtener datos más acertados. Finalmente, se registra la medida del radio del loop. 
 
-Para registrar los resultados de cada repetición del experimento, se deberá utilizar el programa “Capstone” antes mencionado. Para evitar errores, es imperativo configurar correctamente el programa antes de iniciar el experimento, y así poder recibir datos de forma correcta.
-
-Los parámetros que se deben ajustar en el programa sería el peso del elevador vacío, y luego del elevador con el objeto, seleccionar la fuerza que se registrará por el sensor rotacional (en este caso “fuerza 1”), y la frecuencia de muestreo, que será de 100 Hz^[Es importante hacer notar que los datos experimentales recibidos tienen una frecuencia de 20 Hz, contrario a las indicaciones previas.].
-
-Para llevar a cabo el experimento, se debe tomar el extremo libre de la cuerda que une el elevador con el sensor rotacional, y tirar de ella, haciendo que suba el elevador. Para simular un descenso, se deja caer de forma controlada el elevador. En particular, se realizó el experimento en dos ocasiones (una de subida y otra de bajada) contando con una aceleración constante en el mismo sentido del desplazamiento y se registraron los resultados en el computador. 
-
-# Resultados
-La totalidad de datos experimentales utilizados y el código utilizado para generar los gráficos se pueden encontrar [**aquí.**](https://github.com/agucova/labs-dinamica/blob/main/set2/analisis.ipynb)
-
-```{r vel, cache=TRUE, echo=FALSE}
-knitr::include_graphics("./figs/velocidad.png")
-```
-```{r fuerza, cache=TRUE, echo=FALSE}
-knitr::include_graphics("./figs/fuerza.png")
-```
-Adicionalmente, se computó numéricamente la aceleración basándose en los intervalos de velocidad:
-```{r acel, cache=TRUE, echo=FALSE}
-knitr::include_graphics("./figs/acel.png")
+```{r parametros, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/parámetros.png")
 ```
 
 ## Análisis de Errores
-Uno de los errores que se pudo encontrar al momento de realizar el experimento, fue el error sistemático de la elección de la cuerda. Al no tener acceso a una cuerda ideal, es necesario escoger una cuerda que se ajuste a las necesidades del experimento. Para ello, la cuerda debe ser flexible, de modo que logre pasar correctamente por el sensor de movimiento rotacional, resistente para aguantar el peso del elevador, y no elástica, ya que el elevador podría variar su aceleración, debido a una pequeña oscilación generada por esta elasticidad. Esto se puede presentar al hacer movimientos bruscos con la cuerda, y afectará tanto a la subida del elevador como a la bajada, pero se estima que será más evidente cuando la aceleración del elevador sea mayor, ya que el elevador se desplazará de manera más pronunciada.
+En este experimento fue posible encontrar varios errores que pueden generar varias diferencias entre los resultados reales y teóricos. Entre ellos está el error sistemático de la elección de la masa conocida. Para este experimento, se necesita que la masa conocida baje por la montaña rusa y logre completar un loop sin caerse, por lo que es necesario algo que pueda pasar por estos tramos de la montaña rusa perdiendo la menor cantidad de energía posible. Estas pérdidas de energía se pueden dar en este caso en la forma de roce entre la masa conocida y la superficie de la montaña rusa. Es por esto que la masa conocida es un carrito, ya que las ruedas reducen considerablemente (pero no del todo) la fricción generada.
 
-Este último punto es el más importante, ya que esta elasticidad no será detectada por el sensor de movimiento rotacional, debido a que la sección de cuerda que se estira y comprime está entre el sensor y el elevador. 
+Dado que la masa conocida ahora tiene ruedas, el centro de masa del carrito se encuentra más elevado que antes, específicamente a 1 cm de altura, por lo que este valor será considerado en el análisis de resultados.
 
-La cuerda que se usó en este experimento cumple con las 2 primeras condiciones, sin embargo, se cree que la elasticidad afectó los resultados obtenidos, debido a las pequeñas oscilaciones que se pueden observar en el gráfico de fuerza vs tiempo.
+Otro error sistemático que se debe considerar al momento de analizar los resultados del experimento, es la posición de la fotocelda que registra la velocidad del carrito. Esta fotocelda registra velocidades tangenciales respecto a su propia posición, pero la velocidad que resulta útil para este informe es la velocidad tangencial respecto del centro de masa del carrito, por lo que es necesario transformar los valores de la fotocelda para que resulten útiles para el análisis de resultados. La explicación de la ocurrencia de este error se verá en mayor detalle más adelante, al igual que su respectiva solución.
 
-Un error detectado cuando se obtuvieron los resultados de ambas repeticiones del experimento fue el error aleatorio correspondiente al error humano al momento de manipular la cuerda. Al hacer esto, es casi imposible mantener una aceleración constante sin la ayuda de algún aparato. Esto se puede apreciar en el gráfico de velocidad vs. tiempo, donde claramente se puede notar que la variación de velocidad respecto del tiempo (en otras palabras, la aceleración) no es constante. 
+Un último error sistemático a considerar corresponde al error humano. Al momento de lanzar el carrito, es casi imposible que la persona que suelte el carrito lo haga desde el reposo absoluto. En otras palabras, es muy probable que al soltar el carrito, este cuente con una velocidad inicial no nula. Una posibilidad es que el carrito sea soltado con una velocidad en el sentido de bajada de la montaña rusa, en este caso, su energía mecánica inicial será mayor que en el reposo, pues tendría una energía cinética no nula. La otra posibilidad es que el carro se moviera ligeramente hacia arriba de la rampa, lo que provocaría un aumento en la energía potencial gravitatoria inicial, que se traduciría en una mayor energía mecánica (respecto al caso del reposo absoluto).
 
-Para mitigar los efectos de este error en los resultados del experimento, se decidió elegir un intervalo de tiempo donde la velocidad varíe a una tasa aproximadamente constante (o sea, en donde la función de velocidad es similar a una recta), y a partir de este intervalo, se calculó un valor cercano a la aceleración constante de la repetición del experimento.
+Por último, se tiene el error aleatorio de la precisión de la fotocelda, cuyo tratamiento se establece en el procedimiento experimental, mediante cinco repeticiones en cada altura.
 
-El último error encontrado corresponde a un error sistemático que solo se hace presente cuando el elevador está subiendo. Este error corresponde al roce del aire con el peso dentro del ascensor. La fuerza de roce se opone al movimiento, por lo que cuando el elevador sube, el roce actúa hacia abajo, actuando sobre el techo del elevador y sobre el peso, y cuando el elevador baja, el roce actúa hacia arriba sobre el suelo del elevador. El problema se presenta cuando el elevador sube y el roce actúa sobre el peso. Esta fuerza de roce tiene que ser contrarrestada por la normal, la cual es una fuerza que va en sentido contrario, aumentando la magnitud de esta, y así alterando los valores registrados por la balanza. 
+## Análisis de Resultados
+Partiendo desde el análisis teórico, es importante calcular los valores de las velocidades teóricas para poder compararlas con las velocidades reales.
 
-Para mitigar este error, se utilizó una masa conocida de poco volumen, para así tener menos contacto con el aire. Aunque el error no fue eliminado, de todas maneras se mejorará la precisión de los resultados del experimento. Aun así, es posible eliminar completamente este error, creando otro elevador completamente sellado haciendo que todo el roce sea experimentado sobre el elevador (donde no puede ser detectado por la balanza) y no sobre la masa conocida.
+Para calcular las velocidades teóricas se utilizará el principio de la conservación de la energía mecánica. Para el primer caso se tiene que el carrito parte del reposo (velocidad nula) a 0,410 m de altura:
+$$ \Delta E_{m} = (E_{cf} + E_{pi}) - (0 + (0.09196 \cdot 9.81 \cdot 0.41)) = 0$$
+$$E_{cf} + E_{pf} = 0.3698\,\si{\joule}$$
+También se sabe que el radio del loop es de 0,125 m, pero, ya que el centro de masa del carrito se encuentra a 1 cm de altura, el radio se corrige a 0,115 m.
 
-# Análisis de Resultados
+FIGURA
 
-Desde el punto de vista teórico del experimento, es importante señalar 4 casos fundamentales, donde el elevador está sometido a diversas condiciones.
+Es por esto que la altura a considerar para la energía potencial gravitatoria en la cima del loop será de 0,24 m:
+$$ \frac{m\cdot v^2}{2} + m\cdot g \Delta h = 0.3698\,\si{\joule}$$
+$$ \frac{0.09196 \cdot v^2}{2}+ 0.09196\cdot 9.81 \cdot 0.24 = 0.3698\,\si{\joule}$$
+$$ v^2 = \frac{0.1533}{0.04598}\si{\metre\squared\per\second\squared} $$
+$$ v = \SI{1.826}{\metre\per\second} $$
+Con este cálculo hecho, se obtiene que la velocidad tangencial teórica del carrito en la cima del loop cuando este se deja caer desde 0,410 metros de altura es de 1,8259 m/s. 
 
-## Caso 1: En reposo
-En este caso, el elevador tiene una velocidad y aceleración nula. Por la segunda ley de Newton antes mencionada, la sumatoria de fuerzas es igual a la multiplicación entre masa y aceleración, pero, ya que la aceleración es nula, entonces la sumatoria de fuerzas es 0:
-$$ \sum F = m\cdot g $$
-$$ \sum F = m\cdot 0 $$
-$$ \sum F = 0 $$
-Por otro lado, en el sistema hay solo 2 fuerzas que actúan directamente sobre la persona: la normal y el peso. A partir de esto, se procede a hacer en diagrama de cuerpo libre de la persona en el elevador:
-```{r reposo, cache=TRUE, echo=FALSE, fig.align="center", out.width="30%"}
-knitr::include_graphics("./figs/reposoyvcte.png")
-```
-Con esto, se puede decir que la sumatoria de fuerzas en el eje vertical es la suma de las fuerzas normal y peso:
-$$ \sum F = F_N - W $$
-Considerando que anteriormente determinamos que la sumatoria de fuerzas es nula, se tiene que:
-$$ \sum F = F_N - W = 0 $$
-$$ F_N = W $$
-A partir de la última parte de esta ecuación se puede deducir que la fuerza que registra la balanza ubicada dentro del elevador corresponde al peso real de la masa conocida, pues la fuerza normal cuenta con la misma magnitud que la fuerza peso.
+Utilizando la fórmula de la aceleración centrífuga, se tiene que:
+$$a_{cf} = \frac{v_t^2}{r}$$
+$$a_{cf} = \frac{1.926^2}{0.115}$$
+$$a_{cf} = \SI{29.003}{\metre\per\second\squared}$$
 
-## Caso 2: Desplazamiento con velocidad constante
-Cuando se mueve el elevador con una velocidad constante, la aceleración, al igual que el caso anterior, es nula, por ende, el análisis es similar al caso en que el elevador se encuentra en reposo. Aplicando segunda Ley de Newton se tiene que:
-$$ \sum F = m\cdot a$$
-$$ \sum F = m\cdot 0 $$
-$$ \sum F = 0$$
-Luego, las únicas fuerzas que actúan en este caso son el peso y la normal, por lo que, considerando la coordenada positiva hacia arriba, se tiene que:
-```{r reposo2, cache=TRUE, echo=FALSE, fig.align="center", out.width="30%"}
-knitr::include_graphics("./figs/reposoyvcte.png")
-```
-$$ \sum F = F_N - W = 0 $$
-$$ F_N = W $$
-Por lo tanto, se concluye lo mismo que en el caso anterior: el peso registrado de la masa conocida no se ve alterado.
+También, se puede crear un diagrama de cuerpo libre para el carrito en la cima del loop:
 
-## Caso 3: Desplazamiento hacia arriba con aceleración constante
-En este caso, se tiene que el elevador tiene velocidad positiva, y aceleración constante positiva, por lo que, al contrario que los 2 casos anteriores, se tiene que la sumatoria de fuerzas no es nula. Es por esto, que es correcto tomar en cuenta la segunda ley de Newton como:
+FIGURA
 
-$$ \sum F = m\cdot a $$
-También, la masa conocida en el elevador ahora tiene 3 fuerzas involucradas: la normal, el peso y la fuerza de inercia (fuerza que aparece a raíz de la segunda ley de Newton):
-```{r acelpositiva, cache=TRUE, echo=FALSE, fig.align="center", out.width="30%"}
-knitr::include_graphics("./figs/acelpositiva.png")
-```
-$$\sum F = F_n - W \neq 0 $$
-Por lo que, juntando la primera ecuación con la anterior tenemos que:
-$$\sum F = F_N - W = m\cdot a$$
-Con esto se puede despejar la ecuación
-$$ m\cdot a = F_N - m\cdot g$$
-$$ F_N = m\cdot a + m\cdot g$$
-$$ F_N = m\cdot{\left(a + g\right)} $$
-Esta última parte de la ecuación es de suma importancia, ya que permite calcular la fuerza que registrará la balanza a cualquier aceleración que tenga el elevador. También cabe mencionar que siempre que la aceleración del elevador sea positiva, el peso registrado por la balanza será mayor al peso de la masa conocida.
+Relacionando este diagrama de cuerpo libre con la aceleración centrífuga y la fuerza centrífuga, se obtiene que:
 
-En particular, si el elevador contara con una aceleración positiva de módulo g (aceleración de gravedad), se tendrá que:
-$$ F_N = m\cdot\left(g + g \right) $$
-$$ F_N = 2 W $$
-Es decir, la balanza mostrará un valor equivalente al doble de la masa del objeto.
+$$\sum F = m\cdot a_{cf} = W + F_N$$
+$$ 0.09196\cdot 29.003 = 9.81\cdot 9.09196 + F_N$$
+$$ 2.6671 = 0.9021 + F_N$$
+$$F_N = \SI{1.765}{\newton}$$
 
-## Caso 4: Desplazamiento hacia abajo con desaceleración constante
-
-Por último, se encuentra el caso en que el elevador se desplaza hacia abajo, con una aceleración constante en el mismo sentido que el desplazamiento. Si se considera un sistema de referencia en que la dirección positiva sea hacia arriba, se tiene que en este caso particular la aceleración del sistema es negativa. Si se aplica la segunda Ley de Newton:
-$$ \sum F = m\cdot a$$
-Y dado $a < 0$, tenemos que $\sum F < 0$.
-
-Además, se sabe que sobre la masa se encuentran presentes 3 fuerzas; el peso, la normal y la fuerza de inercia (proveniente de la segunda Ley de Newton), y, siguiendo el mismo procedimiento que en el caso anterior, se tiene que:
-```{r acelnegativa, cache=TRUE, echo=FALSE, fig.align="center", out.width="30%"}
-knitr::include_graphics("./figs/acelnegativa.png")
-```
-$$ \sum F = F_N - W = m\cdot a$$
-$$ m \cdot a = F_N - m\cdot g$$
-$$ F_N = m\cdot a + m\cdot g $$
-$$ F_N = m\cdot\left(a + g\right) $$
-Con esto se puede concluir que, ya que la aceleración del elevador es negativa, entonces la sumatoria de fuerzas o la suma de la normal y el peso, es negativa y dado que el peso no se ve afectado por la aceleración del elevador (depende de la masa del objeto), entonces para que la sumatoria sea verdadera, la normal debe disminuir, lo cual es correcto con la ecuación resultante, con una normal menor al peso provocando una aceleración negativa. En otras palabras, si la aceleración es negativa, entonces el peso medido por la balanza (que en verdad es representante de la fuerza normal) será siempre menor al peso real de la masa conocida.
-
-A modo de ejemplo, si el ascensor se deja caer libremente (sujeto a la aceleración de gravedad), se tendrá que:
-
-$$ F_N = m\cdot\left(-g + g\right) $$
-$$ F_N = 0 $$
-
-Por lo tanto, la balanza no registraría el peso del objeto en cuestión.
-
-Habiendo analizado los 4 casos anteriores, se puede concluir que la fuerza normal tendrá un valor máximo si el elevador se desplaza hacia arriba con aceleración constante, y un valor mínimo de 0 si el elevador cae libremente, o con una aceleración hacia abajo de mayor magnitud que la aceleración de gravedad.
-
-Ahora pasando a analizar los datos experimentales como tal, tenemos que en la primera serie se recreó la subida del elevador, tirando del hilo que pasa por el sensor de movimiento rotacional, permitiendo registrar la velocidad de este.
-
-La total de la medición duró 5,1 segundos, pero el periodo donde el elevador está subiendo (en otras palabras, el tiempo donde los resultados obtenidos son relevantes para este informe), debe ser calculado utilizando la fórmula relacionada con los errores aleatorios tratados en el informe 0:
-
-$$ I_{real} = \frac{t_1 + t_2}{2} \pm \frac{\text{prec.}}{2} $$
-
-Para este experimento, se considera que el elevador empieza a subir cuando su velocidad cambia de signo negativo o nulo, a signo positivo y solo si este cambio de signo da lugar a la fluctuación más grande del registro. Se siguió un proceso similar para determinar el tiempo de término de la subida del elevador. Se buscó la primera vez donde la velocidad cambia de signo positivo a signo negativo o nulo en la fluctuación, ya que es en este momento donde el elevador empieza a descender de nuevo.
-
-Utilizando esta fórmula y la explicación anterior, se tiene que el tiempo de inicio de la subida del elevador se encuentra entre 1,375 ± 0,025 s, y el tiempo donde el elevador deja de subir se encuentra entre 2,925 ± 0,025 s.
-
-En este intervalo de tiempo, se tiene que encontrar un sub-intervalo donde la aceleración sea constante (o sea, donde la velocidad aumenta linealmente) para hacer nuestro análisis posterior.
-
-Mediante observaciones gráficas, se propuso un intervalo entre 1,8 s y 2,05 s (ambos incluidos), constituido por 6 mediciones. Para justificar la elección del intervalo, se graficó los datos en cuestión y se construyó una regresión lineal sobre la velocidad para asegurar que sea un buen modelo.
-
-```{r pintervalo, cache=TRUE, echo=FALSE, out.width="65%", fig.align="center"}
-knitr::include_graphics("./figs/intervalo1.png")
+Repitiendo el mismo procedimiento que se hizo para este caso, se calcula la velocidad, aceleración y fuerza normal teórica de los 7 casos restantes. 
+```{r fuerzayacel, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center"}
+knitr::include_graphics("./figs/acelyfuerza.png")
 ```
 
-Evaluando el modelo, se consiguió un $r$ de Pearson de 0,99982, indicando una muy alta correlación lineal, perfecto para el propósito de este informe.
+Dado que a todas las velocidades el carrito logra dar una vuelta al loop sin caerse, es importante calcular teóricamente a qué velocidad mínima tiene que ir el carro sin que se caiga. Esto ocurre cuando en el equilibrio de fuerzas, la normal es nula, ya que esta fuerza siempre aparece cuando el objeto está en contacto con la superficie (sin normal, no hay contacto), por lo que se puede armar la siguiente ecuación:
 
-Después, se despejó la siguiente fórmula cinemática para determinar la aceleración en el intervalo:
-$$ v_f = v_i + a\cdot\Delta{t} $$
-Obteniendo una aceleración de 2,512 $m/s^2$.
+$$m\cdot a_{cf} = W + F_N$$
+$$ m\cdot\frac{v_t^2}{r} - m\cdot g \geq 0 $$
+$$\frac{v_t^2}{r} - g \geq 0 $$
+$$ v_t \geq \sqrt{g \cdot r}$$
+$$ v_t \geq \sqrt{9.81\cdot 0.115}$$
+$$ v_t \geq \SI{1.062}{\metre\per\second}$$
+Con esto se puede decir que la velocidad mínima que el carrito necesita para completar el loop es de 1,062 m/s cuando el carrito se encuentra en la cima del loop.
 
-Utilizando este valor, se puede calcular la fuerza normal que en teoría debería registrar la balanza en el elevador, utilizando la fórmula obtenida anteriormente para el caso en que el elevador sube con una aceleración constante. 
+Con este valor se puede calcular también la velocidad mínima que debe tener el carrito al momento de entrar al loop (la velocidad en la cima del loop será representada por $v_f$, la velocidad que requiere el carro al iniciar el loop $v_i$, la altura inicial será $h_i$, la altura final será $h_f$, masa $m$ y la aceleración de la gravedad $g$):
+$$ E_{ci} + E_{pi} = E_{cf} + E_{pf}$$
+$$\frac{m v_i^2}{2} + m\cdot g \cdot h_i = \frac{m v_f^2}{2} + m\cdot g\cdot h_f$$
+$$v_i \cdot 0.04598 + 0.009 = 0.0518 + 0.2165$$
+$$v_i^2 = 5.639$$
+$$v_i = \SI{2.374}{\metre\per\second}$$
+Y con esta velocidad inicial mínima se puede calcular la altura mínima donde debe partir el carrito para lograr pasar el loop sin caerse, para esto, se utilizará la ecuación de conservación de energía nuevamente, considerando como situación inicial cuando se suelta el carrito, y como situación final cuando este llega a la base del loop:
 
-$$ F_N = \SI{0.4496}{\kilo\gram} \cdot \left(\SI{2.512}{{\metre\per\second}\squared} + \SI{9.81}{{\metre\per\second}\squared}\right) $$
-$$ F_N = \SI{5.539}{\newton} $$
-Por otro lado, gracias a los resultados registrados por la balanza dentro del elevador, se puede calcular la fuerza normal real, para luego compararla con la fuerza normal teórica.
-Los valores registrados por la balanza en el periodo de tiempo con aceleración constante fueron:
-TABLA
-TABLA
-Para calcular el valor de la fuerza normal, se calculó el promedio de los 6 valores registrados por la balanza en este intervalo, llegando a una fuerza de 5,73 N.
 
-Se puede apreciar que hay una diferencia de 0,191 N comparando el valor teórico con el real (la balanza siente alrededor de 19 gramos más de lo que debería). Esto se debe a la presencia de los errores mencionados anteriormente, los cuales, debido a su naturaleza, deberían aumentar los valores registrados por la balanza.
-
-Respecto a la segunda repetición del experimento, se simuló un descenso del elevador, dejándolo caer de forma controlada.
-
-Esta repetición duró un total de 6,45 segundos, pero, al igual que el caso anterior, solo un fragmento de este tiempo es relevante para este informe.
-
-Utilizando el mismo procedimiento utilizado para la repetición anterior, se determinó el punto de inicio cuando la velocidad pase de un valor positivo o nulo a un valor negativo, y el punto de término cuando la velocidad pasa de un valor negativo a un valor positivo o nulo.
-
-De esta forma se tiene que el intervalo de tiempo donde parte el descenso del elevador es 1,675 ± 0,025 s, y el intervalo donde termina el descenso es 3,675 ± 0,025 s.
-
-Utilizando el mismo razonamiento que en la repetición anterior, se determinó que el intervalo donde la aceleración del elevador es aproximadamente constante, es entre los 2,3 s y los 2,6 s, teniendo un $r$ de Pearson de -0,99934.
-```{r sintervalo, cache=TRUE, echo=FALSE, out.width="65%", fig.align="center"}
-knitr::include_graphics("./figs/intervalo2.png")
-```
-
-Nuevamente, se calculó que la aceleración en este intervalo de tiempo es de $\SI{-1.733}{{\metre\per\second}\squared}$.
-
-Con este valor, se calcula la fuerza normal teórica:
-$$ F_N = \SI{0.4495}{\kilo\gram} \cdot\left(\SI{-1.733}{{\metre\per\second}\squared} + \SI{9.81}{{\metre\per\second}\squared}\right)$$
-Ya teniendo la fuerza normal teórica, se calcula la fuerza normal real utilizando el mismo método que en la primera repetición.
-```{r tabl1, cache=TRUE, echo=FALSE, out.width="45%", fig.align="center"}
-knitr::include_graphics("./figs/tabla1.png")
-```
-
-```{r tabla2, cache=TRUE, echo=FALSE, out.width="60%", fig.align="center"}
-knitr::include_graphics("./figs/tabla2.png")
-```
-Luego de calcular el promedio de todas estas fuerzas, se tiene que el valor de la fuerza normal real es de $3.602$ N, siendo un valor muy fiel al valor teórico (la balanza registra solo $2.8$ g menos de lo que debería). Esto probablemente se debe a la poca cantidad y baja intensidad de los errores que pueden afectar a los resultados cuando el elevador va en descenso.
-
-# Interpretación y Discusión de Resultados
-Respecto a las estimaciones teóricas, específicamente partiendo de los diagramas de cuerpo libre, es importante señalar que existen patrones que se repiten constantemente que determinan los cambios de las condiciones de la masa conocida. El patrón consiste en que en cualquier caso, mientras haya aceleración distinta de 0, la balanza dará resultados distintos al peso real de la masa conocida. Esto significa que para la masa no es relevante si se tiene velocidad positiva, nula o negativa. 
-
-```{r tabla3, cache=TRUE, echo=FALSE, out.width="100%", fig.align="center"}
-knitr::include_graphics("./figs/tablan.png")
-```
-
-Respecto a los gráficos de resultados, el gráfico de velocidad vs. tiempo resultó ser fundamental, ya que gracias a esto se logró calcular el valor aproximado de la aceleración y mediante esta llegar a los valores teóricos para las fuerzas. Con esto, se logró armar una ecuación que relaciona todas estas variables, que estima teóricamente para cualquier caso el valor que registrará una balanza dentro de un elevador.
-
-$$F_N = m\cdot\left(a + g\right)$$
-Volviendo a los diagramas de cuerpo libre, en el análisis de resultados, se hizo estos diagramas a 4 casos distintos que resultan ser relevantes para este informe, pero en la tabla anterior se muestra que existen 9 tipos de casos distintos que puede tener el elevador. Por ejemplo, el diagrama de cuerpo libre no se hizo para los casos en que se esté frenando (velocidad y aceleración tienen distinto signo). Esto se debe por la conclusión sacada de los primeros párrafos de este ítem: para los aspectos relevantes de este informe, nada depende de la velocidad como tal, sino que lo importante es su variación respecto del tiempo, o sea, su aceleración.
-
-Regresando al ejemplo del frenado, en ese caso el diagrama de cuerpo libre sería equivalente al de los casos 3 y 4, dependiendo si la aceleración es positiva o negativa, respectivamente.
-
-# Conclusión
-Desde el punto de vista teórico, se logró modelar el sistema en distintas situaciones, describiéndolo matemáticamente, lo que permitió concluir que la fuerza normal no dependía de la velocidad, sino que de la aceleración del elevador en un momento determinado.
-
-También se logró exitosamente aislar intervalos donde la velocidad es constante, y estimar la fuerza normal a partir de estos, comparándolos con los valores teóricos que yacen del análisis previo por Diagramas de Cuerpo Libre (DCL). Se observa una concordancia entre el modelo teórico basado en física newtoniana y los dos experimentos presentados, dentro de un margen de error razonable mencionado en la hipótesis.
-
-Tras realizar la experimentación y el análisis de resultados, se pudo determinar el cumplimiento de las hipótesis planteadas, pues en ambos experimentos el porcentaje de error entre la fuerza normal teórica y la experimental fue menor al 5% (3,3% en la subida, 0,8% en la bajada) y en ambos casos se logró identificar y caracterizar las fuerzas peso y normal.
-
+$$ E_{ci} + E_{pi} = E_{cf} + E_{pf}$$
+$$ 0 + m\cdot g \cdot h_i = \frac{mv^2}{2} + m\cdot\g\h_f$$
+$$ g\cdot h_i = \frac{v_f^2}{2} + g h_f$$
+$$ 9.81 \cdot h_i = \frac{5.639}{2} + 0.098$$
+$$ h_i = 0.297 m $$
+Comparando esta altura mínima teórica con la altura mínima real (0,35 m), se puede notar que existe un porcentaje de error del 15,14%, lo cual se explica por la presencia de los errores antes mencionados.
