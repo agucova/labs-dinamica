@@ -15,7 +15,7 @@ header-includes:
   - \renewcommand*{\citet}[1]{{\cite{#1}}}
   - \rhead{Informe de Laboratorio}
   - \sisetup{per-mode=fraction}
-  - \floatplacement{figure}{H}
+  - \floatplacement{figure}{H!}
 output:
   tufte::tufte_handout:
     citation_package: natbib
@@ -117,7 +117,7 @@ También se sabe que el radio del loop es de 0,125 m, pero, ya que el centro de 
 ```{r trayectorias, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap = "Trayectoria corregida considerando el centro de mesa, y la corrección en el radio del loop."}
 knitr::include_graphics("./figs/trayectorias.png")
 ```
-
+\pagebreak
 Es por esto que la altura a considerar para la energía potencial gravitatoria en la cima del loop será de 0,24 m:
 $$ \frac{m\cdot v_t^2}{2} + m\cdot g \Delta h = 0.3698\,\si{\joule}$$
 $$ \frac{0.09196 \cdot v_t^2}{2}+ 0.09196\cdot 9.81 \cdot 0.24 = 0.3698\,\si{\joule}$$
@@ -129,13 +129,13 @@ Utilizando la fórmula de la aceleración centrífuga, se tiene que:
 $$a_{cf} = \frac{v_t^2}{r}$$
 $$a_{cf} = \frac{1.926^2}{0.115}$$
 $$a_{cf} = \SI{29.003}{\metre\per\second\squared}$$
+\pagebreak
 
 También, se puede crear un diagrama de cuerpo libre para el carrito en la cima del loop:
 
 ```{r autito, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap = "DCL en la cima de loop."}
 knitr::include_graphics("./figs/autito.png")
 ```
-
 Relacionando este diagrama de cuerpo libre con la aceleración centrífuga y la fuerza centrífuga, se obtiene que:
 
 $$\sum F = m\cdot a_{cf} = W + F_N$$
@@ -173,6 +173,7 @@ $$ g\cdot h_i = \frac{v_f^2}{2} + g h_f$$
 $$ 9.81 \cdot h_i = \frac{5.639}{2} + 0.098$$
 $$ h_i = \SI{0.297}{\metre} $$
 Comparando esta altura mínima teórica con la altura mínima real (0,35 m), se puede notar que existe un porcentaje de error del 15,14%, lo cual se explica por la presencia de los errores antes mencionados.
+\pagebreak
 
 Dejando de lado el aspecto teórico de este experimento, en la siguiente tabla se pueden encontrar los valores obtenidos por el fotosensor, asignando colores linealmente asociados a cada conjunto de datos (velocidad y altura):
 
@@ -196,30 +197,31 @@ $$\omega = \SI{15.907}{\radian\per\second}$$
 Con esto, se procede a calcular la velocidad tangencial real:
 $$v_{t \text{ ajustada}} = \omega\cdot r_\text{centro de masa}$$
 $$ v_{t \text{ ajustada}} = \SI{1.829}{\metre\per\second}$$
+\pagebreak
 
-Con esto se tiene que en realidad el carrito tiene una velocidad de 1,829 m/s, logrando evitar el error sistemático de la posición del fotosensor. Se repite el mismo procedimiento para todas las demás velocidades registradas y se organizan los resultados en la siguiente tabla:
+Con esto se tiene que en realidad el carrito tiene una velocidad de 1,829 m/s, logrando evitar el error sistemático de la posición del fotosensor. Se repite el mismo procedimiento para todas las demás velocidades registradas y se organizan los resultados en la tabla de la figura 7.
 ```{r ajustada, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap="Velocidades ajustadas con la corrección ya mencionada, en comparación con los promedios experimentales y sus respectivos cuadrados."}
 knitr::include_graphics("./figs/ajustada.png")
 ```
-Con estos resultados, es posible calcular el porcentaje de error de los 8 casos experimentales:
+Con estos resultados, es posible calcular el porcentaje de error de los 8 casos experimentales, como se observa en la figura 8.
 ```{r error, cache=TRUE, echo=FALSE, out.width="85%", dpi=300, fig.align="center", fig.cap = "Porcentaje de errores entre las predicciones y las mediciones corregidas."}
 knitr::include_graphics("./figs/error.png")
 ```
 Habiendo calculado todos los errores de cada caso, al comparar los valores reales con los teóricos, se tiene que en promedio existe un error del 1,47%, un error notablemente bajo.
-
-Para lograr analizar de mejor manera los resultados, se aplicó una regresión lineal a los datos experimentales ajustados, obteniendo la ecuación $v(h) = 4.02294h + 0.165377$ ($R^2 = 0.98996$) y para los datos teóricos (linealmente ajustado a la función modelo) se tiene que $v’(h) = 3.99829v + 0.23239$ ($R^2 = 0.99784$).
+Para lograr analizar de mejor manera los resultados, se aplicó una regresión lineal a los datos experimentales ajustados, obteniendo la ecuación $v(h) = 4.02294h + 0.165377$ ($R^2 = 0.98996$) y para los datos teóricos (linealmente ajustado a la función modelo) se tiene que $v’(h) = 3.99829v + 0.23239$ ($R^2 = 0.99784$). Se pueden ver ambas regresiones en la figura 9.
 ```{r scatter, cache=TRUE, echo=FALSE, out.width="100%", dpi=300, fig.align="center", fig.cap = "Dispersión de los datos teóricos y experimentales, junto con sus regresiones lineales y error estándar."}
 knitr::include_graphics("./figs/scatter.png")
 ```
+\pagebreak
 Ambas regresiones lineales muestran un muy buen ajuste ($R^2$ muy cercano a 1) y una alta similitud entre ellas (como se aprecia en el gráfico), con una pendiente con solo $0.02465$ de diferencia y una intercepción con apenas $0.067013$ de diferencia. Esto nuevamente valida el modelo teórico propuesto con un alto valor predictivo y bajo error, incluso si se simplifica linealmente.
-
 
 # Interpretación y Discusión de Resultados
 
 Dentro de las posibles posiciones del carrito en el loop, se destacan 2 situaciones, cuando este carrito se encuentra en la cima del loop, y cuando este se encuentra en la base del loop. Estas situaciones se destacan debido a que en la base, toda la energía mecánica está en forma de energía cinética, y en el segundo caso, se tiene la menor cantidad de energía cinética en todo el loop. A continuación se tiene los diagramas de cuerpo libre para ambos casos:
-```{r circulo, cache=TRUE, echo=FALSE, out.width="70%", dpi=300, fig.align="center", fig.cap = "Diagrama de cuerpo libre del carrito en posiciones relevantes."}
+```{r circulo, cache=TRUE, echo=FALSE, out.width="60%", dpi=300, fig.align="center", fig.cap = "Diagrama de cuerpo libre del carrito en posiciones relevantes."}
 knitr::include_graphics("./figs/circulo.png")
 ```
+\pagebreak
 A partir de ambos diagramas de cuerpo libre, se pueden sacar diversas conclusiones. La primera es la gran diferencia de magnitudes de la fuerza normal. Esto se debe a que esta fuerza tiene sentidos distintos, por lo que se ve afectada de forma distinta por el peso. A su vez, esto se debe a las diferencias de velocidades en ambos puntos. En la base hay mucha velocidad, por lo que la fuerza centrípeta y centrífuga tienen mayor magnitud que en la cima del loop, donde hay menos velocidad.
 
 La segunda conclusión tiene que ver con la magnitud de la normal. Anteriormente se calculó la velocidad mínima que tiene que tener el carrito para poder dar una vuelta en el loop sin problemas. La ecuación que se utilizó para este cálculo fue la siguiente:
@@ -239,7 +241,6 @@ $$\frac{v_i^2}{2} = g\cdot r + 2 \cdot g\cdot (2r)$$
 $$v_i^2 = 5 \cdot g \cdot r$$
 $$v_i = \sqrt{5 g r}$$
 $$v_i = \sqrt{5}\cdot v_f$$
-\newpage
 A partir de este cálculo, se tiene que la velocidad del carrito al iniciar el loop es √5 veces mayor que la velocidad en la cima del loop. Al analizar la fuerza centrífuga al inicio y al final del loop se tiene que:
 $$ F_{cff} = \frac{m\cdot v_f^2}{r}$$
 $$F_{cff} = \frac{mgr}{r}$$
